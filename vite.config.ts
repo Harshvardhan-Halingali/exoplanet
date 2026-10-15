@@ -27,9 +27,9 @@ function mastApiDevPlugin(): Plugin {
             }
 
             const standardReq = new Request(fullUrl, {
-              method: req.method,
+              method: req.method || "GET",
               headers,
-              body: body ? body : undefined,
+              ...(body ? { body } : {}),
             });
 
             const webRes = await handleMastApiRequest(standardReq);

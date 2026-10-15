@@ -16,7 +16,7 @@ export async function searchArchive(
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ mission, target }),
-    signal,
+    ...(signal ? { signal } : {}),
   });
 
   const data = await res.json().catch(() => ({}));
@@ -35,7 +35,7 @@ export async function fetchObservationProducts(
   signal?: AbortSignal
 ): Promise<MastProduct[]> {
   const res = await fetch(`/api/mast/products?obsid=${encodeURIComponent(obsid)}`, {
-    signal,
+    ...(signal ? { signal } : {}),
   });
 
   const data = await res.json().catch(() => ({}));
@@ -51,7 +51,7 @@ export async function fetchLightCurve(
   signal?: AbortSignal
 ): Promise<LightCurveData> {
   const res = await fetch(`/api/mast/lightcurve?dataURI=${encodeURIComponent(dataURI)}`, {
-    signal,
+    ...(signal ? { signal } : {}),
   });
 
   const data = await res.json().catch(() => ({}));
